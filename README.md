@@ -150,42 +150,8 @@ The server exposes the following powerful HubSpot integration tools:
      - `limit` (number, optional, default: 10): Maximum number of contacts to return
    - Returns contacts sorted by last modified date
 
-## Example Use Cases
 
-### CRM Data Access via AI Assistant
 
-```javascript
-// Example of how an AI assistant might use the hubspot_get_active_contacts tool
-const result = await useHubspotTool('hubspot_get_active_contacts', { limit: 5 });
-console.log("Most recently active contacts:", result);
-
-// Example of creating a new contact
-const newContact = await useHubspotTool('hubspot_create_contact', {
-  firstname: "Jane",
-  lastname: "Smith",
-  email: "jane.smith@example.com",
-  properties: {
-    company: "Acme Inc",
-    phone: "555-555-5555"
-  }
-});
-console.log("New contact created:", newContact);
-```
-
-See the `examples` directory for more detailed examples of how these tools can be used in various scenarios.
-
-## Development
-
-```bash
-# Run in development mode with auto-reload
-npm run dev
-
-# Run tests
-npm test
-
-# Check for linting issues
-npm run lint
-```
 
 ## Extending the Server
 
@@ -194,16 +160,6 @@ The server is designed to be easily extensible. To add new HubSpot API capabilit
 1. Add new methods to the `HubSpotClient` class in `src/hubspot-client.ts`
 2. Register new tools in the `setupToolHandlers` method in `src/index.ts`
 3. Rebuild the project with `npm run build`
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
