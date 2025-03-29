@@ -1,37 +1,22 @@
-FROM node:20-alpine AS builder
+FROM node:22.12-alpine AS builder
+
+COPY . /app
 
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package*.json ./
 RUN npm install
 
-# Copy source code
-COPY tsconfig.json ./
-COPY src ./src
-
-# Build TypeScript code
-RUN npm run build
-
-# Create production image
-FROM node:20-alpine
+FROM node:22-alpine AS release
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+COPY --from=builder /app/build /app/build
+COPY --from=builder /app/package.json /app/package.json
+COPY --from=builder /app/package-lock.json /app/package-lock.json
 
-# Install production dependencies only
-RUN npm install --production
-
-# Copy built files from builder stage
-COPY --from=builder /app/dist ./dist
-
-# Set executable permissions
-RUN chmod +x ./dist/index.js
-
-# Set environment variables
 ENV NODE_ENV=production
 
-# Command to run the server
-ENTRYPOINT ["node", "dist/index.js"]
+
+RUN npm ci --ignore-scripts --omit-dev
+EXPOSE 8080
+ENTRYPOINT ["npx", "mcp-proxy", "node", "/app/dist/index.js"]

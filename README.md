@@ -75,7 +75,41 @@ npm start
 
 # Or with a specific access token
 npm start -- --access-token=your-access-token
+
+# Run the SSE server with authentication
+npx mcp-proxy-auth node dist/index.js
 ```
+
+### Implementing Authentication in SSE Server
+
+The SSE server uses the [mcp-proxy-auth](https://www.npmjs.com/package/mcp-proxy-auth) package for authentication. To implement authentication:
+
+1. Install the package:
+   ```bash
+   npm install mcp-proxy-auth
+   ```
+
+2. Set the `AUTH_SERVER_URL` environment variable to point to your API key verification endpoint:
+   ```bash
+   export AUTH_SERVER_URL=https://your-auth-server.com/verify
+   ```
+
+3. Run the SSE server with authentication:
+   ```bash
+   npx mcp-proxy-auth node dist/index.js
+   ```
+
+4. The SSE URL will be available at:
+   ```
+   localhost:8080/sse?apiKey=apikey
+   ```
+
+   Replace `apikey` with your actual API key for authentication.
+
+The `mcp-proxy-auth` package acts as a proxy that:
+- Intercepts requests to your SSE server
+- Verifies API keys against your authentication server
+- Only allows authenticated requests to reach your SSE endpoint
 
 ### Integrating with AI Assistants
 

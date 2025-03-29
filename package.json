@@ -31,6 +31,7 @@
     "@hubspot/api-client": "^12.0.1",
     "@modelcontextprotocol/sdk": "^1.8.0",
     "dotenv": "^16.4.7",
+    "mcp-proxy-auth": "^1.0.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {
