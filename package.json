@@ -1,7 +1,7 @@
 {
   "name": "hubspot-mcp-server",
   "version": "0.1.0",
-  "description": "A HubSpot MCP server implementation in TypeScript",
+  "description": "A powerful Model Context Protocol (MCP) server implementation for seamless HubSpot CRM integration, enabling AI assistants to interact with your HubSpot data",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -13,7 +13,17 @@
   "keywords": [
     "mcp",
     "hubspot",
-    "crm"
+    "crm",
+    "model-context-protocol",
+    "ai-assistant",
+    "hubspot-api",
+    "hubspot-integration",
+    "crm-integration",
+    "typescript",
+    "contact-management",
+    "company-management",
+    "engagement-tracking",
+    "ai-tools"
   ],
   "author": "lakhvinder singh",
   "license": "MIT",
