@@ -184,8 +184,41 @@ The server exposes the following powerful HubSpot integration tools:
      - `limit` (number, optional, default: 10): Maximum number of contacts to return
    - Returns contacts sorted by last modified date
 
+7. **hubspot_update_contact**
+   - Update an existing contact in HubSpot (ignores if contact does not exist)
+   - Parameters:
+     - `contact_id` (string, required): HubSpot contact ID to update
+     - `properties` (object, required): Contact properties to update
+   - Example:
+     ```json
+     {
+       "contact_id": "12345",
+       "properties": {
+         "email": "updated.email@example.com",
+         "phone": "555-987-6543",
+         "jobtitle": "Senior Software Engineer"
+       }
+     }
+     ```
 
-
+8. **hubspot_update_company**
+   - Update an existing company in HubSpot (ignores if company does not exist)
+   - Parameters:
+     - `company_id` (string, required): HubSpot company ID to update
+     - `properties` (object, required): Company properties to update
+   - Example:
+     ```json
+     {
+       "company_id": "67890",
+       "properties": {
+         "domain": "updated-domain.com",
+         "phone": "555-123-4567",
+         "industry": "Software",
+         "city": "New York",
+         "state": "NY"
+       }
+     }
+     ```
 
 ## Extending the Server
 

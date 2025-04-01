@@ -182,6 +182,44 @@ class HubSpotServer {
               }
             }
           }
+        },
+        {
+          name: 'hubspot_update_contact',
+          description: 'Update an existing contact in HubSpot (ignores if contact does not exist)',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              contact_id: { 
+                type: 'string', 
+                description: 'HubSpot contact ID to update' 
+              },
+              properties: { 
+                type: 'object', 
+                description: 'Contact properties to update',
+                additionalProperties: true
+              }
+            },
+            required: ['contact_id', 'properties']
+          }
+        },
+        {
+          name: 'hubspot_update_company',
+          description: 'Update an existing company in HubSpot (ignores if company does not exist)',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              company_id: { 
+                type: 'string', 
+                description: 'HubSpot company ID to update' 
+              },
+              properties: { 
+                type: 'object', 
+                description: 'Company properties to update',
+                additionalProperties: true
+              }
+            },
+            required: ['company_id', 'properties']
+          }
         }
       ];
       
@@ -256,6 +294,32 @@ class HubSpotServer {
           
           case 'hubspot_get_active_contacts': {
             const result = await this.hubspot.getRecentContacts(args.limit as number | undefined);
+            return {
+              content: [{
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }]
+            };
+          }
+          
+          case 'hubspot_update_contact': {
+            const result = await this.hubspot.updateContact(
+              args.contact_id as string,
+              args.properties as Record<string, any>
+            );
+            return {
+              content: [{
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }]
+            };
+          }
+          
+          case 'hubspot_update_company': {
+            const result = await this.hubspot.updateCompany(
+              args.company_id as string,
+              args.properties as Record<string, any>
+            );
             return {
               content: [{
                 type: 'text',

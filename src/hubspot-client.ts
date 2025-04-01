@@ -435,4 +435,76 @@ export class HubSpotClient {
       throw new Error(`HubSpot API error: ${error.message}`);
     }
   }
+
+  async updateContact(
+    contactId: string,
+    properties: Record<string, any>
+  ): Promise<any> {
+    try {
+      // Check if contact exists
+      try {
+        await this.client.crm.contacts.basicApi.getById(contactId);
+      } catch (error: any) {
+        // If contact doesn't exist, return a message
+        if (error.statusCode === 404) {
+          return {
+            message: 'Contact not found, no update performed',
+            contactId
+          };
+        }
+        // For other errors, throw them to be caught by the outer try/catch
+        throw error;
+      }
+
+      // Update the contact
+      const apiResponse = await this.client.crm.contacts.basicApi.update(contactId, {
+        properties
+      });
+
+      return {
+        message: 'Contact updated successfully',
+        contactId,
+        properties
+      };
+    } catch (error: any) {
+      console.error('Error updating contact:', error);
+      throw new Error(`HubSpot API error: ${error.message}`);
+    }
+  }
+
+  async updateCompany(
+    companyId: string,
+    properties: Record<string, any>
+  ): Promise<any> {
+    try {
+      // Check if company exists
+      try {
+        await this.client.crm.companies.basicApi.getById(companyId);
+      } catch (error: any) {
+        // If company doesn't exist, return a message
+        if (error.statusCode === 404) {
+          return {
+            message: 'Company not found, no update performed',
+            companyId
+          };
+        }
+        // For other errors, throw them to be caught by the outer try/catch
+        throw error;
+      }
+
+      // Update the company
+      const apiResponse = await this.client.crm.companies.basicApi.update(companyId, {
+        properties
+      });
+
+      return {
+        message: 'Company updated successfully',
+        companyId,
+        properties
+      };
+    } catch (error: any) {
+      console.error('Error updating company:', error);
+      throw new Error(`HubSpot API error: ${error.message}`);
+    }
+  }
 }
